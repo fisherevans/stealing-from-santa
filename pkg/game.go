@@ -120,7 +120,7 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		px, py := g.Player.EffectivePosition()
 		op.GeoM.Translate(-px*g.TileSize, -py*g.TileSize)
 		screen.DrawImage(g.RenderedMap, op)
-		ebitenutil.DebugPrint(screen, fmt.Sprintf("Snow Gold: %d / %d", g.Money, highScore))
+		ebitenutil.DebugPrint(screen, fmt.Sprintf("Snow Gold: %d", g.Money))
 	}
 	for _, m := range g.Mobs {
 		op := &ebiten.DrawImageOptions{}
