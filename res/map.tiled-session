@@ -1,0 +1,53 @@
+{
+    "Map/SizeTest": {
+        "height": 4300,
+        "width": 2
+    },
+    "activeFile": "map.tmx",
+    "expandedProjectPaths": [
+        "."
+    ],
+    "fileStates": {
+        "map.tmx": {
+            "scale": 2.663,
+            "selectedLayer": 1,
+            "viewCenter": {
+                "x": 816.3725122042808,
+                "y": 453.9992489673301
+            }
+        },
+        "map.tmx#characters": {
+            "scaleInDock": 3.6734
+        },
+        "map.tmx#entities": {
+            "scaleInDock": 1
+        },
+        "map.tmx#kyrise": {
+            "scaleInDock": 3.087
+        },
+        "map.tmx#things": {
+            "scaleInDock": 2.6021
+        },
+        "map.tmx#tiles": {
+            "scaleInDock": 3.731
+        }
+    },
+    "last.imagePath": "/Users/fisher/dev/FisherEvans.com/sites/stealing-from-santa/dist",
+    "map.height": 100,
+    "map.lastUsedFormat": "tmx",
+    "map.tileHeight": 16,
+    "map.tileWidth": 16,
+    "map.width": 100,
+    "openFiles": [
+        "map.tmx"
+    ],
+    "project": "map.tiled-project",
+    "recentFiles": [
+        "map.tmx"
+    ],
+    "tileset.embedInMap": true,
+    "tileset.tileSize": {
+        "height": 16,
+        "width": 16
+    }
+}
