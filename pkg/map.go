@@ -47,7 +47,7 @@ func LoadNewInstance() Instance {
 				i.Mobs = append(i.Mobs, &Entity{
 					Sprite:     elfSprite,
 					Speed:      enemySpeed,
-					Controller: &EnemyHugController{Last: Left},
+					Controller: &EnemyHugController{Last: Right},
 					X:          x,
 					Y:          y,
 				})
@@ -94,7 +94,7 @@ func LoadNewInstance() Instance {
 			case entityTidSanta:
 				i.Mobs = append(i.Mobs, &Entity{
 					Sprite:     santaSprite,
-					Speed:      enemySpeed * 3,
+					Speed:      enemySpeed * 2,
 					Controller: &SantaController{Last: None},
 					X:          x,
 					Y:          y,

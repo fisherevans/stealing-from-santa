@@ -169,10 +169,11 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		DrawCenteredText(screen, smallFont, g.GameOverMessage, g.ScreenWidth/2, g.ScreenHeight/2+10, colornames.White)
 	}
 	if g.Escaped {
-		DrawCenteredText(screen, bigFont, "You Escaped!", g.ScreenWidth/2, g.ScreenHeight/2-20, colornames.White)
-		DrawCenteredText(screen, smallFont, fmt.Sprintf("High Score: %d", highScore), g.ScreenWidth/2, g.ScreenHeight/2+10, colornames.Red)
-		DrawCenteredText(screen, smallFont, fmt.Sprintf("Your Score: %d", g.Money), g.ScreenWidth/2, g.ScreenHeight/2+30, colornames.White)
-		DrawCenteredText(screen, smallFont, "A game by Laundering'R'Us", g.ScreenWidth/2, g.ScreenHeight/2+60, colornames.Forestgreen)
+		DrawCenteredText(screen, bigFont, "You Escaped!", g.ScreenWidth/2, g.ScreenHeight/2-50, colornames.White)
+		DrawCenteredText(screen, smallFont, fmt.Sprintf("High Score: %d", highScore), g.ScreenWidth/2, g.ScreenHeight/2-20, colornames.Red)
+		DrawCenteredText(screen, smallFont, fmt.Sprintf("Your Score: %d", g.Money), g.ScreenWidth/2, g.ScreenHeight/2, colornames.White)
+		DrawCenteredText(screen, smallFont, "What a Loser!", g.ScreenWidth/2, g.ScreenHeight/2+20, colornames.White)
+		DrawCenteredText(screen, smallFont, "A game by Laundering'R'Us", g.ScreenWidth/2, g.ScreenHeight/2+40, colornames.Forestgreen)
 	}
 }
 

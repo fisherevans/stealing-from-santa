@@ -2,26 +2,75 @@ package santa
 
 import (
 	"github.com/hajimehoshi/ebiten/v2"
+	"math"
 )
 
 type Controller interface {
 	Control(e *Entity, g *Game)
 }
 
-type PlayerController struct{}
+type PlayerController struct {
+	TouchID ebiten.TouchID
+}
+
+var inputs = map[ebiten.Key]Direction{
+	ebiten.KeyW: Up,
+	ebiten.KeyS: Down,
+	ebiten.KeyA: Left,
+	ebiten.KeyD: Right,
+
+	ebiten.KeyUp:    Up,
+	ebiten.KeyDown:  Down,
+	ebiten.KeyLeft:  Left,
+	ebiten.KeyRight: Right,
+
+	ebiten.KeyNumpad8: Up,
+	ebiten.KeyNumpad2: Down,
+	ebiten.KeyNumpad4: Left,
+	ebiten.KeyNumpad6: Right,
+}
 
 func (c *PlayerController) Control(p *Entity, g *Game) {
-	if p.Moving == None {
-		if ebiten.IsKeyPressed(ebiten.KeyW) && g.MaybeMove(p, Up) {
-			return
-		} else if ebiten.IsKeyPressed(ebiten.KeyS) && g.MaybeMove(p, Down) {
-			return
-		} else if ebiten.IsKeyPressed(ebiten.KeyA) && g.MaybeMove(p, Left) {
-			return
-		} else if ebiten.IsKeyPressed(ebiten.KeyD) && g.MaybeMove(p, Right) {
+	if p.Moving != None {
+		return
+	}
+
+	// keyboard
+	for k, d := range inputs {
+		if ebiten.IsKeyPressed(k) && g.MaybeMove(p, d) {
 			return
 		}
 	}
+
+	// mouse and touch
+	tx, ty := int(g.ScreenWidth/2), int(g.ScreenHeight/2)
+	if ebiten.IsMouseButtonPressed(ebiten.MouseButtonLeft) {
+		tx, ty = ebiten.CursorPosition()
+	}
+	for _, id := range ebiten.AppendTouchIDs(nil) {
+		tx, ty = ebiten.TouchPosition(id)
+	}
+	mx := (float64(tx) - (g.ScreenWidth / 2.0)) / (g.ScreenWidth / 2.0)
+	my := (float64(ty) - (g.ScreenHeight / 2.0)) / (g.ScreenHeight / 2.0)
+	amx, amy := math.Abs(mx), math.Abs(my)
+	if amx < 0.1 && amy < 0.1 {
+		return
+	}
+	d := None
+	if amx > amy {
+		if mx < 0 {
+			d = Left
+		} else {
+			d = Right
+		}
+	} else {
+		if my < 0 {
+			d = Up
+		} else {
+			d = Down
+		}
+	}
+	g.MaybeMove(p, d)
 }
 
 type EnemyHugController struct {
