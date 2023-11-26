@@ -25,9 +25,10 @@ type Game struct {
 type Instance struct {
 	IntroTime float64
 
-	Map         *tiled.Map
-	Renderer    *render.Renderer
-	RenderedMap *ebiten.Image
+	Map        *tiled.Map
+	Renderer   *render.Renderer
+	MapImage   *ebiten.Image
+	PropsImage *ebiten.Image
 
 	lastTime time.Time
 
@@ -82,7 +83,7 @@ func (g *Game) Update() error {
 			pt.ID = 0
 			pt.Nil = true
 			g.Money += m
-			g.RenderedMap = RenderMap(g.Renderer)
+			g.RenderProps()
 		}
 	}
 
@@ -119,7 +120,8 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		op.GeoM.Translate(g.ScreenWidth/2-g.TileSize/2, g.ScreenHeight/2-g.TileSize/2)
 		px, py := g.Player.EffectivePosition()
 		op.GeoM.Translate(-px*g.TileSize, -py*g.TileSize)
-		screen.DrawImage(g.RenderedMap, op)
+		screen.DrawImage(g.MapImage, op)
+		screen.DrawImage(g.PropsImage, op)
 		ebitenutil.DebugPrint(screen, fmt.Sprintf("Snow Gold: %d", g.Money))
 	}
 	for _, m := range g.Mobs {
@@ -130,7 +132,6 @@ func (g *Game) Draw(screen *ebiten.Image) {
 		dx, dy := mx-px, my-py
 		op.GeoM.Translate(dx*g.TileSize, dy*g.TileSize)
 		screen.DrawImage(m.Sprite, op)
-
 	}
 	{
 		op := &ebiten.DrawImageOptions{}

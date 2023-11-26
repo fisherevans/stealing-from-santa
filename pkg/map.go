@@ -6,6 +6,7 @@ import (
 	"github.com/hajimehoshi/ebiten/v2"
 	"github.com/lafriks/go-tiled"
 	"github.com/lafriks/go-tiled/render"
+	"log"
 	"os"
 )
 
@@ -103,16 +104,28 @@ func LoadNewInstance() Instance {
 		}
 	}
 
-	i.RenderedMap = RenderMap(i.Renderer)
+	i.RenderMap()
+	i.RenderProps()
 
 	return i
 }
 
-func RenderMap(r *render.Renderer) *ebiten.Image {
-	r.Clear()
-	r.RenderLayer(mapIndex)
-	r.RenderLayer(propIndex)
-	return ebiten.NewImageFromImage(r.Result)
+func (i *Instance) RenderMap() {
+	i.Renderer.Clear()
+	err := i.Renderer.RenderLayer(mapIndex)
+	if err != nil {
+		log.Fatal("failed to render map", err)
+	}
+	i.MapImage = ebiten.NewImageFromImage(i.Renderer.Result)
+}
+
+func (i *Instance) RenderProps() {
+	i.Renderer.Clear()
+	err := i.Renderer.RenderLayer(propIndex)
+	if err != nil {
+		log.Fatal("failed to render props", err)
+	}
+	i.PropsImage = ebiten.NewImageFromImage(i.Renderer.Result)
 }
 
 func XyToIndex(x, y int) int {
