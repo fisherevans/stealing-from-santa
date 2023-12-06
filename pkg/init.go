@@ -14,7 +14,6 @@ import (
 )
 
 const (
-	enemySpeed        = 3.0
 	entityTidHugLeft  = 1
 	entityTidHugRight = 2
 	entityTidLR       = 3
@@ -52,7 +51,8 @@ var (
 
 	mapWidth int
 
-	highScore = 0
+	highScore  = 0
+	enemySpeed = 3.0
 
 	introTime = 5.0
 )
@@ -118,7 +118,7 @@ func init() {
 		}
 	}
 
-	highScore = 1
+	highScore = 0
 	for _, t := range mapFile.Layers[propIndex].Tiles {
 		for tid, m := range moneyTids {
 			if int(t.ID) == tid {

@@ -26,11 +26,18 @@ var inputs = map[ebiten.Key]Direction{
 
 	ebiten.KeyNumpad8: Up,
 	ebiten.KeyNumpad2: Down,
+	ebiten.KeyNumpad5: Down,
 	ebiten.KeyNumpad4: Left,
 	ebiten.KeyNumpad6: Right,
 }
 
 func (c *PlayerController) Control(p *Entity, g *Game) {
+	if (ebiten.IsKeyPressed(ebiten.Key7) && ebiten.IsKeyPressed(ebiten.Key8) && ebiten.IsKeyPressed(ebiten.Key9)) ||
+		(ebiten.IsKeyPressed(ebiten.KeyNumpad1) && ebiten.IsKeyPressed(ebiten.KeyNumpad3) && ebiten.IsKeyPressed(ebiten.KeyNumpad7) && ebiten.IsKeyPressed(ebiten.KeyNumpad9)) {
+		enemySpeed = 1.25
+		//highScore = 917
+	}
+
 	if p.Moving != None {
 		return
 	}
